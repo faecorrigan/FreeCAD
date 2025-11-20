@@ -26,7 +26,7 @@
     <message>
       <location filename="../ui/dialogLayers.ui" line="29"/>
       <source>New</source>
-      <translation>Новый</translation>
+      <translation>Создать</translation>
     </message>
     <message>
       <location filename="../ui/dialogLayers.ui" line="36"/>

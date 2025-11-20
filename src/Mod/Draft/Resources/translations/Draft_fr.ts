@@ -2444,8 +2444,8 @@ forme de faces représentant cette largeur (ancien importateur uniquement).</tra
       <location filename="../ui/preferences-dxf.ui" line="482"/>
       <source>If checked, the legacy importer will attempt to create Sketcher objects
 instead of Draft or Part objects. This overrides the 'Import As' setting</source>
-      <translation>Si cette option est cochée, l'ancien importateur tentera de créer des objets Sketcher au lieu d'objets
-Draft ou Part. Cela remplace le paramètre « Importer en tant que ».</translation>
+      <translation>Si cette option est cochée, l'ancien importateur tentera de créer des objets Sketcher au lieu d'objets Draft ou Part. Cela remplace le
+paramètre « Importer en tant que ».</translation>
     </message>
     <message>
       <location filename="../ui/preferences-dxf.ui" line="486"/>
@@ -6066,7 +6066,7 @@ pour permettre à FreeCAD de télécharger ces bibliothèques. Répondre Oui.</t
     <message>
       <location filename="../../drafttaskpanels/task_scale.py" line="206"/>
       <source>Edit Scale</source>
-      <translation>Éditer la mise à l'échelle</translation>
+      <translation>Modifier l'échelle</translation>
     </message>
     <message>
       <location filename="../../drafttaskpanels/task_scale.py" line="104"/>
@@ -8081,9 +8081,9 @@ Si d'autres objets sont sélectionnés, ils seront ignorés.</translation>
       <source>Converts bidirectionally between Draft objects and sketches.
 Multiple selected Draft objects are converted into a single sketch.
 However, a single sketch with disconnected traces is converted into several individual Draft objects.</source>
-      <translation>Convertit bidirectionnellement des objets Draft et des esquisses.
-Plusieurs objets Draft sélectionnés sont convertis en une seule esquisse.
-Cependant, une seule esquisse avec des ruptures est convertie en plusieurs objets Draft.</translation>
+      <translation>Convertit de manieère bidirectionnelle des objets Draft et des esquisses.
+Plusieurs objets Draft sélectionnés sont convertis en une seule esquisse. Cependant, une seule esquisse avec des ruptures est
+convertie en plusieurs objets Draft.</translation>
     </message>
   </context>
   <context>
