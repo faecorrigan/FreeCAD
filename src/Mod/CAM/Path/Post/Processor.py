@@ -603,7 +603,7 @@ class PostProcessor:
                 "scope": SCOPE_MACHINE,
                 "type": "text",
                 "label": translate("CAM", "Pre-Rotary Move"),
-                "default": "",
+                "default": "G53 G0 Z0",
                 "help": translate(
                     "CAM",
                     "G-code commands inserted before the rotary axes move: before a rotary "
