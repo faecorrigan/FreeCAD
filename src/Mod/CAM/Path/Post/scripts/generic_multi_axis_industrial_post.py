@@ -89,6 +89,9 @@ class GenericMultiAxisIndustrial(PostProcessor):
     # extend this.
     EXTRA_SUPPORTED = EXTRA_SUPPORTED
 
+    # The O number is zero-padded to this many digits. Child posts set this.
+    PROGRAM_NUMBER_DIGITS = 4
+
     # ------------------------------------------------------------------
     # Property schema
     # ------------------------------------------------------------------
@@ -343,7 +346,7 @@ class GenericMultiAxisIndustrial(PostProcessor):
             leading.append(self._as_is(TAPE_MARK))
         number = int(self.values.get("PROGRAM_NUMBER", 0) or 0)
         if number > 0:
-            line = f"O{number:04d}"
+            line = f"O{number:0{self.PROGRAM_NUMBER_DIGITS}d}"
             if self.values["OUTPUT_COMMENTS"] and self._job is not None:
                 label = re.sub(r"[()]", "", getattr(self._job, "Label", "") or "")
                 if label:
