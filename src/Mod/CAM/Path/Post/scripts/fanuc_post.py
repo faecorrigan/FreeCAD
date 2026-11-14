@@ -48,10 +48,14 @@ from typing import Any
 import FreeCAD
 import Path
 
-from Path.Post.scripts.generic_multi_axis_industrial_post import (
-    GenericMultiAxisIndustrial,
-    PlaneCommand,
-)
+from Path.Post.scripts.generic_multi_axis_industrial_post import GenericMultiAxisIndustrial
+
+try:
+    # Tilted work planes: the post names its plane command once the base
+    # post-processor knows what one is.
+    from Path.Post.TiltedWorkPlane import PlaneCommand
+except ImportError:
+    PlaneCommand = None
 
 translate = FreeCAD.Qt.translate
 
