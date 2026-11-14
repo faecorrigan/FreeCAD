@@ -1118,7 +1118,7 @@ class TestJobPropertyOverrides(unittest.TestCase):
         """
         Regression test: job-level overrides must win even for properties
         that _merge_machine_config() also sets directly from the live
-        machine model (e.g. f_for_rapid_moves, tool_change).
+        machine model (e.g. f_for_rapid_moves).
         """
         from Path.Post.Processor import PostProcessor
         from Machine.models.machine import MachineFactory
@@ -1128,15 +1128,12 @@ class TestJobPropertyOverrides(unittest.TestCase):
         machine = self._create_test_machine()
         # Machine-level config: opposite of what we will override to.
         machine.processing.f_for_rapid_moves = True
-        machine.processing.tool_change = True
 
         original_get_machine = MachineFactory.get_machine
         MachineFactory.get_machine = lambda name: machine
 
         try:
-            self.job.PostProcessorPropertyOverrides = (
-                '{"f_for_rapid_moves": false, "tool_change": false}'
-            )
+            self.job.PostProcessorPropertyOverrides = '{"f_for_rapid_moves": false}'
             processor = PostProcessor(self.job, "", "", "mm")
             processor._machine = machine
             processor.export2()
@@ -1144,10 +1141,6 @@ class TestJobPropertyOverrides(unittest.TestCase):
             self.assertFalse(
                 processor.values["F_FOR_RAPID_MOVES"],
                 "job override of f_for_rapid_moves must win over machine.processing",
-            )
-            self.assertFalse(
-                processor.values["TOOL_CHANGE"],
-                "job override of tool_change must win over machine.processing",
             )
 
         finally:
@@ -1687,8 +1680,7 @@ class TestToolChangeFormatOutput(unittest.TestCase):
 
         T# M6 with early tool prep:        warns
         assert_tool_prep, no early prep:   warns
-        tool_change off, but a format:     warns, use the tool change format instead
-        no_tool_change with tool_change off, or the defaults: no warnings
+        the defaults:                      no warnings
         """
 
         def notes(machine):
@@ -1703,13 +1695,3 @@ class TestToolChangeFormatOutput(unittest.TestCase):
         found = notes(self._machine(Constants.ToolChangeFormat.M6_ONLY, assert_prep=True))
         self.assertEqual(1, len(found), found)
         self.assertIn("Assert Tool Prep", found[0])
-
-        machine = self._machine(Constants.ToolChangeFormat.M6_T)
-        machine.processing.tool_change = False
-        found = notes(machine)
-        self.assertEqual(1, len(found), found)
-        self.assertIn("Tool Change Format", found[0])
-
-        machine = self._machine(Constants.ToolChangeFormat.NO_TOOL_CHANGE)
-        machine.processing.tool_change = False
-        self.assertEqual([], notes(machine))

@@ -708,17 +708,6 @@ class PostProcessor:
                 ),
             },
             {
-                "name": "tool_change",
-                "scope": SCOPE_JOB,
-                "type": "bool",
-                "label": translate("CAM", "Allow tool-change (Deprecated)"),
-                "default": True,
-                "help": translate(
-                    "CAM",
-                    "Unchecked to suppress tool-change (M6)",
-                ),
-            },
-            {
                 "name": "axis_precision",
                 "scope": SCOPE_MACHINE,
                 "type": "int",
@@ -1212,7 +1201,7 @@ class PostProcessor:
         # Processing options
         for (
             option
-        ) in "split_arcs f_for_rapid_moves translate_rapid_moves translate_drill_cycles tool_change xy_before_z_after_tool_change filter_inefficient_moves".split(
+        ) in "split_arcs f_for_rapid_moves translate_rapid_moves translate_drill_cycles xy_before_z_after_tool_change filter_inefficient_moves".split(
             " "
         ):
             self.values[option.upper()] = getattr(self._machine.processing, option)
@@ -1381,7 +1370,7 @@ class PostProcessor:
         # Explicit overrides (job dialog / caller-supplied) are documented as
         # highest priority, so they must win even over values already set by
         # _merge_machine_config() straight from the live machine model —
-        # otherwise a per-job override of e.g. f_for_rapid_moves/tool_change
+        # otherwise a per-job override of e.g. f_for_rapid_moves
         # is silently discarded in favor of the machine-level setting.
         for key, value in overrides.items():
             if key in bundle:
@@ -3481,20 +3470,6 @@ class PostProcessor:
                         "CAM",
                         "Machine '{machine}' uses Assert Tool Prep without Early Tool Prep. "
                         "No tool prep commands will be written",
-                    ).format(machine=machine.name),
-                )
-            )
-        if (
-            getattr(processing, "tool_change", True) == False or self.values["TOOL_CHANGE"] == False
-        ) and tool_change_format != Constants.ToolChangeFormat.NO_TOOL_CHANGE:
-            squawks.append(
-                self._create_squawk(
-                    "WARNING",
-                    translate(
-                        "CAM",
-                        "Machine '{machine}' tries to turn off Tool Changes with "
-                        "Tool Change in options or Allow Tool change under post processor. "
-                        "Use Tool Change Format under the Options tab instead.",
                     ).format(machine=machine.name),
                 )
             )
